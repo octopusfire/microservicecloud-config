@@ -1,0 +1,42 @@
+spring: 
+  profiles: 
+    active: 
+      - dev
+--- 
+server:  
+  port:  7001
+  
+spring: 
+  profiles: dev   #开发环境
+  application:  
+    name: microservicecloud-config-eureka-client
+    
+eureka:  
+  instance:  
+    hostname:  eureka7001.com   #Eureka 服务的实例名称
+  client:
+    register-with-eureka:  false  #false表示不向注册中心注册自己
+    fetch-registry: false #false 表示自己就是注册中心,我们的职责是维护实例，并不需要检索服务
+    service-url:  
+      defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/  # 单机版设置与eureka server 交互的地址查询和注册服务
+      
+---  
+server:  
+  port:  7002
+  
+spring: 
+  profiles: test   #测试环境
+  application:  
+    name: microservicecloud-config-eureka-client
+    
+eureka:  
+  instance:  
+    hostname:  eureka7002.com   #Eureka 服务的实例名称
+  client:
+    register-with-eureka:  false  #false表示不向注册中心注册自己
+    fetch-registry: false #false 表示自己就是注册中心,我们的职责是维护实例，并不需要检索服务
+    service-url:  
+      defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/  # 单机版设置与eureka server 交互的地址查询和注册服务
+      
+--- 
+#请保持为UTF-8格式
